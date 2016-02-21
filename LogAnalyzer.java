@@ -44,6 +44,15 @@ public class LogAnalyzer
             hourCounts[hour]++;
         }
     }
+    /**
+     * Crea en la clase LogAnalyzer un método llamado numberOfAccesses
+     * que se pueda ejecutar después del método analyzeHourlyData y 
+     * que devuelva el número total de accesos al servidor web registrados en el archivo de log.
+     */
+    public int numberOffAccesses()
+    {
+         return hourCounts.length;
+    }
 
     /**
      * Print the hourly counts.
