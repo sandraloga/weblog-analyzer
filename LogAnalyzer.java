@@ -76,18 +76,18 @@ public class LogAnalyzer
             {
                 comparador =hourCounts[index];
                 horaMasPeticiones = index;
-                
+
             }
-            
 
         }
         if (comparador == 0)
         {
-          System.out.println("No ha habido accesos");  
-          horaMasPeticiones = -1;  
+            System.out.println("No ha habido accesos");  
+            horaMasPeticiones = -1;  
         }
         return horaMasPeticiones;
     }
+
     /**
      * Metodo que devuelve la hora a la que el servidor estuvo menos sobrecargado. Si hay empate devuelve 
      * la última de las horas.  Si no ha habido accesos informa del hecho por pantalla y devuelve -1.
@@ -102,18 +102,62 @@ public class LogAnalyzer
             {
                 comparador = hourCounts[index];
                 horaMenosPeticiones = index;
-                
+
             }
-            
 
         }
         if (comparador == 0)
         {
-          System.out.println("No ha habido accesos");
-          horaMenosPeticiones = -1;  
+            System.out.println("No ha habido accesos");
+            horaMenosPeticiones = -1;  
         }
         return horaMenosPeticiones;
-    
+
+    }
+
+    /**
+     * Método que muesta por pantalla el período de dos horas consecutivas con más carga del día y devuelva un entero con la primera hora de dicho periodo.
+     * Si hay empate devuelve el último período. Si no ha habido accesos informa del hecho por pantalla y devuelve -1.
+     */
+    public int mayorRangoVisitas()
+    {
+        int rangoMayor = 0;
+        int comparador=0;
+        int rangoExtra=0;
+        int indexExtra=0;
+        for (int index=1 ; index < hourCounts.length ; index=index+2)
+        {
+             if ( index == hourCounts.length - 1)
+            {
+                rangoExtra = hourCounts[index]+ hourCounts[0] ;
+                indexExtra = index;
+            }
+            else
+           {
+                if ((hourCounts[index] +hourCounts[index+1]) >= comparador)
+                {
+
+                comparador = hourCounts[index] +hourCounts[index+1];
+                rangoMayor = index;
+                }
+           }
+            
+           
+             if (rangoExtra >= comparador)
+            {
+                comparador = rangoExtra;   
+                rangoMayor = indexExtra;
+            }
+           
+
+            if (comparador == 0)
+            {
+                System.out.println("No ha habido accesos");
+                rangoMayor = -1;  
+            }
+           
+        }
+         return rangoMayor;
     }
 
     /**
