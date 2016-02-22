@@ -23,6 +23,7 @@ public class LogAnalyzer
         // Create the reader to obtain the data.
         reader = new LogfileReader();
     }
+
     /**
      * nuevo constructor tendrá un parámetro consistente en el nombre del archivo de log a analiza
      */
@@ -31,11 +32,11 @@ public class LogAnalyzer
         hourCounts = new int[24];
         reader = new LogfileReader(archivoLog);
     }
+
     /**
      * Analyze the hourly access data from the log file.
      */
- 
-    
+
     public void analyzeHourlyData()
     {
         while(reader.hasNext()) {
@@ -44,6 +45,7 @@ public class LogAnalyzer
             hourCounts[hour]++;
         }
     }
+
     /**
      * Crea en la clase LogAnalyzer un método llamado numberOfAccesses
      * que se pueda ejecutar después del método analyzeHourlyData y 
@@ -51,7 +53,36 @@ public class LogAnalyzer
      */
     public int numberOffAccesses()
     {
-         return hourCounts.length;
+        int contadorAccesos = 0;
+        for (int index=0 ; index < hourCounts.length ; index++)
+        {
+            contadorAccesos = contadorAccesos +  hourCounts[index];  
+        }
+        return contadorAccesos;
+    }
+
+    /**
+     *  método denominado busiestHour a la clase LogAnalyzer que se pueda ejecutar
+     *  después del método analyzeHourlyData y que devuelva en qué hora el servidor
+     *  tuvo que responder a más peticiones. Si hay empate devuelve la última de las horas. 
+     *  Si no ha habido accesos informa del hecho por pantalla y devuelve -1.
+     */
+    public int busiestHour()
+    {   
+        int comparador = 0;
+        for (int index=0 ; index < hourCounts.length ; index++)
+        {
+            if (hourCounts[index] > comparador)
+            {
+                comparador = index;
+            }
+            else
+            {
+                comparador = -1;
+            }
+
+        }
+        return comparador;
     }
 
     /**
@@ -65,12 +96,12 @@ public class LogAnalyzer
         int hour = 0;
         while(hour < hourCounts.length)
         {
-         System.out.println(hour + ": " + hourCounts[hour]);
-          hour++;
+            System.out.println(hour + ": " + hourCounts[hour]);
+            hour++;
         }
-        
+
     }
-    
+
     /**
      * Print the lines of data read by the LogfileReader
      */
