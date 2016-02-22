@@ -62,8 +62,7 @@ public class LogAnalyzer
     }
 
     /**
-     *  método denominado busiestHour a la clase LogAnalyzer que se pueda ejecutar
-     *  después del método analyzeHourlyData y que devuelva en qué hora el servidor
+     *  Método que devuelve en qué hora el servidor
      *  tuvo que responder a más peticiones. Si hay empate devuelve la última de las horas. 
      *  Si no ha habido accesos informa del hecho por pantalla y devuelve -1.
      */
@@ -84,9 +83,37 @@ public class LogAnalyzer
         }
         if (comparador == 0)
         {
-          horaMasPeticiones = 1;  
+          System.out.println("No ha habido accesos");  
+          horaMasPeticiones = -1;  
         }
         return horaMasPeticiones;
+    }
+    /**
+     * Metodo que devuelve la hora a la que el servidor estuvo menos sobrecargado. Si hay empate devuelve 
+     * la última de las horas.  Si no ha habido accesos informa del hecho por pantalla y devuelve -1.
+     */
+    public int quietestHour()
+    {
+        int horaMenosPeticiones = 0;
+        int comparador =  hourCounts[busiestHour()];
+        for (int index=0 ; index < hourCounts.length ; index++)
+        {
+            if (hourCounts[index] <= comparador)
+            {
+                comparador = hourCounts[index];
+                horaMenosPeticiones = index;
+                
+            }
+            
+
+        }
+        if (comparador == 0)
+        {
+          System.out.println("No ha habido accesos");
+          horaMenosPeticiones = -1;  
+        }
+        return horaMenosPeticiones;
+    
     }
 
     /**
