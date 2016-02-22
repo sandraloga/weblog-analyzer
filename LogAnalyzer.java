@@ -68,21 +68,25 @@ public class LogAnalyzer
      *  Si no ha habido accesos informa del hecho por pantalla y devuelve -1.
      */
     public int busiestHour()
-    {   
+    {
+        int horaMasPeticiones = 0;
         int comparador = 0;
         for (int index=0 ; index < hourCounts.length ; index++)
         {
-            if (hourCounts[index] > comparador)
+            if (hourCounts[index] >= comparador)
             {
-                comparador = index;
+                comparador =hourCounts[index];
+                horaMasPeticiones = index;
+                
             }
-            else
-            {
-                comparador = -1;
-            }
+            
 
         }
-        return comparador;
+        if (comparador == 0)
+        {
+          horaMasPeticiones = 1;  
+        }
+        return horaMasPeticiones;
     }
 
     /**
